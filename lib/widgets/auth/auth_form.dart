@@ -1,3 +1,4 @@
+import 'package:chat_app/main.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -38,11 +39,21 @@ class _AuthFormState extends State<AuthForm> {
                     height: 12,
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.amber,
+                      backgroundColor: Colors.pink[900],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                     onPressed: () {},
                     child: const Text('Login'),
                   ),
                   TextButton(
                     onPressed: () {},
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.pink[900],
+                    ),
                     child: const Text("Create new account"),
                   ),
                 ],
