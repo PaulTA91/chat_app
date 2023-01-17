@@ -2,8 +2,9 @@ import 'package:chat_app/main.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
-  const AuthForm(this.submitFn, {super.key});
+  const AuthForm(this.submitFn, this.isLoading, {super.key});
 
+  final bool isLoading;
   final void Function(
     String email,
     String password,
@@ -98,30 +99,34 @@ class _AuthFormState extends State<AuthForm> {
                   const SizedBox(
                     height: 12,
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.amber,
-                      backgroundColor: Colors.pink[900],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                  if (widget.isLoading) const CircularProgressIndicator(),
+                  if (!widget.isLoading)
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.amber,
+                        backgroundColor: Colors.pink[900],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
+                      onPressed: _trySubmit,
+                      child: Text(_isLogin ? 'Login' : 'Create Account'),
                     ),
-                    onPressed: _trySubmit,
-                    child: Text(_isLogin ? 'Login' : 'Create Account'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _isLogin = !_isLogin;
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: Colors.pink[900],
+                  if (widget.isLoading) const CircularProgressIndicator(),
+                  if (!widget.isLoading)
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _isLogin = !_isLogin;
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.pink[900],
+                      ),
+                      child: Text(_isLogin
+                          ? "Create new account"
+                          : "Login to Exisiting Account"),
                     ),
-                    child: Text(_isLogin
-                        ? "Create new account"
-                        : "Login to Exisiting Account"),
-                  ),
                 ],
               ),
             ),
