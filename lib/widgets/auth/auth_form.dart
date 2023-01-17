@@ -28,7 +28,12 @@ class _AuthFormState extends State<AuthForm> {
 
     if (isValid) {
       _formKey.currentState?.save();
-      widget.submitFn(_userEmail, _password, _username, _isLogin);
+      widget.submitFn(
+        _userEmail.trim(),
+        _password.trim(),
+        _username.trim(),
+        _isLogin,
+      );
 
       //use these new values for Firebase auth
     }
