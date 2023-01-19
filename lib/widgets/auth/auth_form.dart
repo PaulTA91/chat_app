@@ -12,6 +12,7 @@ class AuthForm extends StatefulWidget {
     String password,
     String username,
     bool isLogin,
+    File image,
   ) submitFn;
 
   @override
@@ -51,6 +52,7 @@ class _AuthFormState extends State<AuthForm> {
         _password.trim(),
         _username.trim(),
         _isLogin,
+        _userImageFile!,
       );
 
       //use these new values for Firebase auth
