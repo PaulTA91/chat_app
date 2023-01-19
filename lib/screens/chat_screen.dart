@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../widgets/chat/messages.dart';
+
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
 
@@ -22,19 +24,17 @@ class ChatScreen extends StatelessWidget {
             items: [
               DropdownMenuItem(
                 value: 'logout',
-                child: Container(
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.exit_to_app,
-                        color: Colors.black,
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text("logout"),
-                    ],
-                  ),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.exit_to_app,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text("logout"),
+                  ],
                 ),
               )
             ],
@@ -46,25 +46,15 @@ class ChatScreen extends StatelessWidget {
           )
         ],
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('chats/mgRznE1ybJtLRZA09soi/messages')
-            .snapshots(),
-        builder: (context, streamSnapshop) {
-          if (streamSnapshop.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final documents = streamSnapshop.data?.docs;
-          return ListView.builder(
-            itemCount: documents?.length,
-            itemBuilder: (context, index) => Container(
-              padding: const EdgeInsets.all(8),
-              child: Text(documents?[index]['text']),
+      // ignore: avoid_unnecessary_containers
+      body: Container(
+        child: Column(
+          children: const [
+            Expanded(
+              child: Messages(),
             ),
-          );
-        },
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
