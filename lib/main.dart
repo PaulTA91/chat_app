@@ -21,8 +21,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.pink[900],
         backgroundColor: Colors.pink[900],
-        colorScheme:
-            ColorScheme.fromSwatch().copyWith(secondary: Colors.deepPurple),
+        textTheme: const TextTheme(bodyText1: TextStyle())
+            .apply(bodyColor: Colors.amber),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: Colors.deepPurple,
+        ),
       ),
       home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
