@@ -35,7 +35,7 @@ class _AuthFormState extends State<AuthForm> {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
-    if (_userImageFile == null) {
+    if (_userImageFile == null && !_isLogin) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text("Please pick an image."),
@@ -52,7 +52,7 @@ class _AuthFormState extends State<AuthForm> {
         _password.trim(),
         _username.trim(),
         _isLogin,
-        _userImageFile!,
+        _userImageFile != null ? _userImageFile! : File(""),
       );
 
       //use these new values for Firebase auth
@@ -75,6 +75,9 @@ class _AuthFormState extends State<AuthForm> {
                   if (!_isLogin) UserImagePicker(imagePickFn: _pickedImage),
                   TextFormField(
                     key: const ValueKey('email'),
+                    autocorrect: false,
+                    textCapitalization: TextCapitalization.none,
+                    enableSuggestions: false,
                     keyboardType: TextInputType.emailAddress,
                     decoration:
                         const InputDecoration(labelText: 'Email Address'),
@@ -89,6 +92,8 @@ class _AuthFormState extends State<AuthForm> {
                   if (!_isLogin)
                     TextFormField(
                       key: const ValueKey('username'),
+                      autocorrect: true,
+                      textCapitalization: TextCapitalization.words,
                       validator: (value) {
                         if (value!.isEmpty || value.length < 4) {
                           return 'Please enter valid username';
