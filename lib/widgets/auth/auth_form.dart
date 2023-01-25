@@ -94,6 +94,7 @@ class _AuthFormState extends State<AuthForm> {
                       key: const ValueKey('username'),
                       autocorrect: true,
                       textCapitalization: TextCapitalization.words,
+                      //testing changes
                       validator: (value) {
                         if (value!.isEmpty || value.length < 4) {
                           return 'Please enter valid username';
